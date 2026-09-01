@@ -1,4 +1,4 @@
-# Progresso — Mentor Sênior (imobiliar)
+# Progresso — Mentor Sênior (FeedHub)
 
 ## Autonomia (avaliação mista)
 
