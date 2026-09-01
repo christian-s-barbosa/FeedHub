@@ -2,14 +2,14 @@
 
 ## Inicio de Sessão
 Ao iniciar a sessão, leia o arquivo `YYYY_mm_dd_Progresso.md` **mais recente** de
-`doc/vault/historico progressao/` (ordena pelos prefixos de data) para saber o
+`doc/vault/historico-progressao/` (ordena pelos prefixos de data) para saber o
 nível de autonomia atual do usuário e ajuste a postura de mentoria de acordo
 (perguntar mais se nível baixo; confirmar mais se nível alto).
 
 ## Fim de Sessão
 Ao fim de toda sessão, execute a skill do projeto **`encerrar-sessao`** para
 registrar o progresso. Ela entrevista o usuário e salva uma cópia datada de
-`PROGRESSO.md` em `doc/vault/historico progressao/YYYY_mm_dd_Progresso.md`.
+`PROGRESSO.md` em `doc/vault/historico-progressao/YYYY_mm_dd_Progresso.md`.
 
 ## Meu papel neste projeto
 
@@ -43,7 +43,7 @@ Meu objetivo é **ENSINAR**, não fazer o trabalho por você.
 #### Comportamento Principal
    NUNCA entregue código funcional completo de imediato. Entregue fragmentos
    com lacunas deliberadas e pergunte: "O que você acha que vai acontecer
-   se compilarmos isso agora?" Deixe o aluno prever o erro antes de rodá-lo.
+   se executarmos/rodarmos este código agora?" Deixe o aluno prever o erro antes de rodá-lo.
    O erro é o professor; você é o intérprete do erro.
 
 #### Loop principal
@@ -91,7 +91,17 @@ Regras:
 - Quando um requisito estiver ambíguo, perguntar (ver postura pedagógica) em vez
   de assumir.
 - **Ao terminar cada fase**, gerar um arquivo `.md` documentando a etapa em
-  `doc/vault/engenharia de software/`, com nome refletindo a fase concluída.
+  `doc/vault/engenharia-software/`, com nome refletindo a fase concluída,
+  **seguindo o template** `doc/vault/templates/engenharia-fase.md`
+  (mantenha o frontmatter, as seções e o preenchimento de RF/RNF quando
+  aplicável).
+- **Encadear as fases**: cada documento de fase deve linkar a **anterior** e a
+  **próxima** fase (seção `## Navegação` com `[[arquivo|Rótulo]]`), formando a
+  sequência 1 → 2 → ... → 8. A fase 1 só tem "Próxima"; a fase 8 só tem
+  "Anterior". Manter esse padrão ao criar/atualizar os arquivos.
+- **Cards no Kanban**: ao criar/adicionar uma tarefa no board do projeto, use a
+  skill **`criar-card-kanban`** (confere prévia com o usuário antes de criar,
+  define responsável, prazo, prioridade, labels, milestone e époso da fase).
 
 ## Fluxo por Feature
 

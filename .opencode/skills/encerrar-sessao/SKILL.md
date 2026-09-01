@@ -1,6 +1,6 @@
 ---
 name: encerrar-sessao
-description: Use when a mentoring session ends (user says "/ends", "fim de sessão", "encerrar", "até logo" or asks to registrar progresso). Guides the user to fill the reflexão of the session and saves a dated copy of PROGRESSO.md to doc/vault/historico progressao/. Trigger keywords: fim de sessão, encerrar, progresso, historico progressao, registrar progresso.
+description: Use when a mentoring session ends (user says "/ends", "fim de sessão", "encerrar", "até logo" or asks to registrar progresso). Guides the user to fill the reflexão of the session and saves a dated copy of PROGRESSO.md to doc/vault/historico-progressao/. Trigger keywords: fim de sessão, encerrar, progresso, historico progressao, registrar progresso.
 ---
 
 # Encerrar sessão — registrar progresso
@@ -11,7 +11,7 @@ AGENTS.md) — o usuário responde; você registra. Não invente respostas.
 
 ## Passos
 
-1. **Ler o template.** Leia `doc/vault/tamplates/PROGRESSO.md` para se basear na estrutura.
+1. **Ler o template.** Leia `doc/vault/templates/PROGRESSO.md` para se basear na estrutura.
 2. **Perguntar, uma coisa por vez.** Entreviste o usuário para preencher:
    - Auto-avaliação de autonomia (nível 1–5 + justificativa);
    - Avaliação do mentor (nível + discordância, se houver);
