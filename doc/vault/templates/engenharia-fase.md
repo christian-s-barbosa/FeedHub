@@ -3,12 +3,21 @@ fase: X
 titulo: Nome da Fase
 data: YYYY-MM-DD
 status: rascunho
+milestone: Fase X — Nome (#<n>)
 ---
 
 # Fase X — Nome da Fase
 
 > **Status:** rascunho | validado
 > **Fase:** X de 8
+
+## Kanban
+
+| Card | Título | Status |
+|------|--------|--------|
+| #N   | Fase X: ... | Done |
+
+> A milestone nasce junto com o início da fase. As referências de card preenchem quando o card atinge `Done`.
 
 ## Objetivo
 

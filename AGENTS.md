@@ -102,6 +102,10 @@ Regras:
 - **Cards no Kanban**: ao criar/adicionar uma tarefa no board do projeto, use a
   skill **`criar-card-kanban`** (confere prévia com o usuário antes de criar,
   define responsável, prazo, prioridade, labels, milestone e époso da fase).
+- **Gerenciar o board / sincronizar com o vault**: use a skill
+  **`gerenciar-card-kanban`** para criar milestone de fase (registrada no `.md`),
+  mover o status de cards (Todo → In Progress → Done) e fechar uma fase
+  (doc `validado` → cards Done + referências no `.md`).
 
 ## Fluxo por Feature
 
