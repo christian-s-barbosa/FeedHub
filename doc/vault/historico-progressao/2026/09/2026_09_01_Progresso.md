@@ -23,3 +23,8 @@
 
 - Focar em: começar a elaborar o documento de requisitos de sistema.
 - Como vou medir progresso: ter todos os requisitos bem definidos até o final.
+
+
+---
+
+Próximo: [[2026_09_02_Progresso]] | [[]]

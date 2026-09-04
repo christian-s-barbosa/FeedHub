@@ -2,14 +2,17 @@
 
 ## Inicio de Sessão
 Ao iniciar a sessão, leia o arquivo `YYYY_mm_dd_Progresso.md` **mais recente** de
-`doc/vault/historico-progressao/` (ordena pelos prefixos de data) para saber o
-nível de autonomia atual do usuário e ajuste a postura de mentoria de acordo
-(perguntar mais se nível baixo; confirmar mais se nível alto).
+`doc/vault/historico-progressao/` — busque **recursivamente** em `YYYY/mm/` e ordene
+pelos prefixos de data (o de **maior** data é o mais recente) — para saber o nível
+de autonomia atual do usuário e ajuste a postura de mentoria de acordo (perguntar
+mais se nível baixo; confirmar mais se nível alto).
 
 ## Fim de Sessão
 Ao fim de toda sessão, execute a skill do projeto **`encerrar-sessao`** para
 registrar o progresso. Ela entrevista o usuário e salva uma cópia datada de
-`PROGRESSO.md` em `doc/vault/historico-progressao/YYYY_mm_dd_Progresso.md`.
+`PROGRESSO.md` em `doc/vault/historico-progressao/YYYY/mm/YYYY_mm_dd_Progresso.md`,
+com **contexto detalhado** (esses registros são lidos por um agente coordenador
+de sessões de mentoria).
 
 ## Meu papel neste projeto
 

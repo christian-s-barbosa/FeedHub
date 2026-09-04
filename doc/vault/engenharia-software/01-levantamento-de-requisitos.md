@@ -32,19 +32,20 @@ separar o essencial (MVP) do secundário.
 
 ### Requisitos Funcionais (RF)
 
-| ID | Requisito | Prioridade |
-|----|-----------|------------|
-| RF-01 | Agregar notícias via RSS de fontes curadas (artigos completos) | MVP |
-| RF-02 | Buscar discussões do Reddit relacionadas aos temas | MVP |
-| RF-03 | Listar postagens iniciais de perfis seguidos no Bluesky (sem respostas) | MVP |
-| RF-04 | Organizar por temas; cada tema exibe as 3 seções filtradas (notícias / discussões / posts) | MVP |
-| RF-05 | Cadastrar tema e fonte individualmente, pela interface | MVP |
-| RF-06 | Cadastrar temas/fontes em massa via CSV | Depois |
-| RF-07 | Login do dono (acesso + edição de temas/fontes) | MVP |
-| RF-08 | Emitir token temporário read-only para visitantes | Depois |
-| RF-09 | Publicar o site em acesso público (dono sempre + visitantes via token) | MVP |
-| RF-10 | Ouvir os textos como áudio: TTS gerado no backend + player próprio dentro do app/site | MVP |
-| RF-11 | Persistir o texto baixado das fontes em dois bancos: PostgreSQL (principal) + banco vetorial (para RAG futura) | Depois |
+| ID    | Requisito                                                                                                      | Prioridade |
+| ----- | -------------------------------------------------------------------------------------------------------------- | ---------- |
+| RF-01 | Agregar notícias via RSS de fontes curadas (artigos completos)                                                 | MVP        |
+| RF-02 | Buscar discussões do Reddit relacionadas aos temas                                                             | MVP        |
+| RF-03 | Listar postagens iniciais de perfis seguidos no Bluesky (sem respostas)                                        | MVP        |
+| RF-04 | Organizar por temas; cada tema exibe as 3 seções filtradas (notícias / discussões / posts)                     | MVP        |
+| RF-05 | Cadastrar tema e fonte individualmente, pela interface                                                         | MVP        |
+| RF-06 | Cadastrar temas/fontes em massa via CSV                                                                        | Depois     |
+| RF-07 | Login do dono (acesso + edição de temas/fontes)                                                                | MVP        |
+| RF-08 | Emitir token temporário read-only para visitantes                                                              | Depois     |
+| RF-09 | Publicar o site em acesso público (dono sempre + visitantes via token)                                         | MVP        |
+| RF-10 | Ouvir os textos como áudio: TTS gerado no backend + player próprio dentro do app/site                          | MVP        |
+| RF-12 | Busca semântica via banco vetorial + embeddings (RAG) — detalhar quando for implementado | Depois |
+| RF-13 | Painel de status do agendador/worker (fontes processadas, última execução, erros, heartbeat) | MVP |
 
 ### Requisitos Não Funcionais (RNF)
 
@@ -57,6 +58,9 @@ separar o essencial (MVP) do secundário.
 | RNF-05 | Site online constantemente (disponibilidade contínua) | Disponibilidade | MVP |
 | RNF-07 | Nunca ultrapassar os limites de uso do free tier | Custo | MVP |
 | RNF-08 | Segurança de segredos: tokens e chaves de API nunca versionados, nem expostos no front-end ou em logs/respostas; geridos via variáveis de ambiente / secrets do hosting | Segurança | MVP |
+| RNF-09 | Desempenho: página/tema carrega em < 2s; busca/consulta retorna em < 1s (valores a confirmar) | Desempenho | MVP |
+| RNF-10 | Segurança: todo tráfego via HTTPS/TLS (nunca HTTP puro), inclusive no acesso por token | Segurança | MVP |
+| RNF-11 | Durabilidade: a curadoria (temas/fontes/associações) tem backup/export periódico | Durabilidade | MVP |
 
 ## Decisões e racional
 
@@ -70,14 +74,12 @@ separar o essencial (MVP) do secundário.
 
 ## Perguntas em aberto
 
-Resolvidas:
-- ~~Frequência de atualização~~ → RNF-01 (Bluesky 1h, Reddit 1 dia, RSS manhã+noite).
-- ~~Vínculo tema ↔ fonte~~ → decidido: fonte pertence a vários temas (N:N).
-
-Adiadas para as próximas fases:
-- Esquema/validação do CSV → Design (Fase 4); RF-06 é Depois.
-- Onde hospedar + HTTPS/secrets → Arquitetura/Deploy (Fases 3 e 7).
-- Duração/UX do token → Especificação/Arquitetura (Fases 2 e 3).
+Perguntas desta fase — detalhes em [[00-perguntas-em-aberto]]:
+- [[00-perguntas-em-aberto|PQ-01]] Frequência de atualização — *Resolvida*
+- [[00-perguntas-em-aberto|PQ-02]] Vínculo tema ↔ fonte — *Resolvida*
+- [[00-perguntas-em-aberto|PQ-03]] Esquema/validação do CSV — *Aberta*
+- [[00-perguntas-em-aberto|PQ-04]] Onde hospedar + HTTPS/secrets — *Aberta*
+- [[00-perguntas-em-aberto|PQ-05]] Duração/UX do token — *Aberta*
 
 ## Definição de pronto (fase concluída)
 

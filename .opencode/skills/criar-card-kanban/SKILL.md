@@ -69,7 +69,8 @@ Se/quando o GitHub expuser a mutação adequada e o usuário pedir, unirá o car
 Mostre o card criado (`html_url`), o assignee, prazo e prioridade, e resuma os campos. Não mude o Status para "Done" sozinho — isso segue a regra doc ↔ board (fase validada).
 
 ## Regras
-- Sempre **confirme a prévia** (Passo 2) antes de criar.
+- **SEMPRE PERGUNTE e espere o OK explícito antes de criar.** A prévia NÃO é autorização. Mostrar a prévia (Passo 2) e receber qualquer resposta que não seja uma confirmação clara ("pode", "ok", "cria", "sim") NÃO permite criar. Elaborar/discutir títulos, prioridades ou escopo TAMBÉM NÃO autoriza. Só crie depois de uma confirmação **explícita** de criação.
+- Nunca crie cards em lote sem autorização específica para **cada** card (ou para o lote inteiro, dito claramente).
 - **Assignee sempre** o dono; nunca outro, salvo instrução explícita.
 - Não exponha tokens; use `gh auth token` internamente, nunca imprima.
 - Execução: se um passo falhar, pare e informe o erro ao usuário — não registre como criado.
