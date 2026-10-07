@@ -1,39 +1,87 @@
 ---
 name: encerrar-sessao
-description: Use when a mentoring session ends (user says "/ends", "fim de sessão", "encerrar", "até logo" or asks to registrar progresso). Guides the user to fill the reflexão of the session (com contexto detalhado, lido por um agente coordenador) and saves a dated copy of PROGRESSO.md to doc/vault/historico-progressao/YYYY/mm/. Trigger keywords: fim de sessão, encerrar, progresso, historico progressao, registrar progresso.
+description: Use when a mentoring session ends (user says "/ends", "fim de sessão", "encerrar", "até logo" or asks to registrar progresso). Produces the 3 progression parts (observação, avaliação, progresso) and updates estado-atual.md, following the templates in .opencode/templates/progressao/. Trigger keywords: fim de sessão, encerrar, progresso, observação, avaliação, registrar sessão, histórico.
 ---
 
 # Encerrar sessão — registrar progresso
 
-Ao **fim de cada sessão de mentoria**, registre o progresso seguindo este fluxo.
-Você, mentor, aplica os campos via perguntas (ver "Postura pedagógica" no
-AGENTS.md) — o usuário responde; você registra. Não invente respostas.
+Ao fim de cada sessão de mentoria, produza as **3 partes** do sistema de
+progressão e atualize o `estado-atual.md`. Siga os templates canônicos em
+`.opencode/templates/progressao/` (`00-visao-geral.md`, `observacao.md`,
+`avaliacao.md`, `progresso.md`, `estado-atual.md`).
 
-## Objetivo
-Há duas ideias com esses arquivos, uma é para histórico, outro é para que você tenha um contexto e, por fim, esse arquivo é utilizado por um outro agente (coordenador) que coordena agentes de mentoria (como você), então eu preciso de mais contexto quando tu for excrever a tua analise sobre a sessão.
+## Pipeline
+
+```
+Observabilidade  →  Avaliação  →  Progressão
+(fatos)             (medida)      (ação)
+```
 
 ## Passos
 
-1. **Ler o template.** Leia `doc/vault/templates/PROGRESSO.md` para se basear na estrutura.
-2. **Perguntar, uma coisa por vez.** Entreviste o usuário para preencher:
-   - Auto-avaliação de autonomia (nível 1–5 + justificativa);
-   - Avaliação do mentor (nível + discordância, se houver, além disso, adicione mais detalhes das dificuldades que o aluno demonstrou ter ao longo da sessão);  
-   - Reflexão da sessão (aprendi, travei, etapa mais longa, mais difícil,
-     fiz sozinho, faria diferente);
-   - Objetivo para a próxima sessão (foco + como medir).
-3. **Criar a cópia datada.** Gere o conteúdo do `PROGRESSO.md` preenchido e
-   salve no caminho (crie a pasta `YYYY/mm` se não existir):
-   ```
-   doc/vault/historico-progressao/YYYY/mm/YYYY_mm_dd_Progresso.md
-   ```
-   - `YYYY_mm_dd` = data de hoje (ex.: `2026_09_01_Progresso.md`).
-   - Use o formato de data local no início do arquivo.
-4. **Evitar sobrescrever.** Se o arquivo do dia já existir, anexe um sufixo:
-   `YYYY_mm_dd_Progresso_2.md`, `_3`, etc.
-5. **Confirmar.** Mostre o caminho salvo e um resumo de 1 linha do que ficou
-   registrado. Não altere o `PROGRESSO.md` mestre (é o template).
+### 1. Observabilidade
+Leia o template `observacao.md`. Registre os **FATOS** da sessão:
+- **Contexto:** fase/tema em jogo.
+- **Eventos:** por conceito — o que aconteceu (erro/acerto/dúvida) e se foi sozinho.
+- **Notas:** o que foi feito, o que ficou pendente.
 
-## Estrutura do arquivo gerado
+Preencha o **frontmatter**: `conceitos` (tocados) e `erros` (onde errou) — usados
+pelo `recalcular-estado.py`.
 
-Siga a estrutura do template `PROGRESSO.md`, substituindo os campos `___` pelas
-respostas. Mantenha o título `# Progresso — Mentor Sênior (FeedHub)` e a data.
+Sem juízo de valor. Salve em
+`doc/vault/historico/YYYY/mm/observacoes/YYYY_mm_dd.md` (crie a pasta se faltar).
+
+### 2. Avaliação
+Leia o template `avaliacao.md`. **Pergunte ao aluno** (uma coisa por vez):
+- auto-avaliação global (Dreyfus) + justificativa;
+- confiança por conceito tocado.
+
+Preencha o **frontmatter** (dado estruturado):
+- `dreyfus` (auto-avaliação + a sua, com discordância);
+- `conceitos[]` com `nome`, `nivel` (Bloom), `evidencia` e `confianca`.
+
+No corpo, escreva a **leitura do mentor** (dificuldades/padrões) e a discordância.
+
+Salve em `doc/vault/historico/YYYY/mm/avaliacao/YYYY_mm_dd.md`.
+
+> **Discordância:** registre confiança (aluno) e competência (você, com evidência).
+> Só reconcilie quando o **gap for grande**; sem evidência conclusiva, marque
+> **"em disputa"** e colete mais na próxima sessão. O ajuste de postura segue a
+> **competência medida**.
+
+### 3. Progressão
+Leia o template `progresso.md`. Registre:
+- **onde estamos** (fase, foco atual);
+- **próximos passos**;
+- **ajuste de postura** (perguntar mais / confirmar mais, conforme o nível).
+
+Salve em `doc/vault/historico/YYYY/mm/progresso/YYYY_mm_dd_prog.md`.
+
+### 4. Recalcular o `estado-atual.md`
+O estado é **derivado** das observações/avaliações (event-sourcing). Não edite a
+matriz à mão — rode o script:
+```
+python "C:\Users\chris\Projetos\.opencode\scripts\recalcular-estado.py" "<vault do projeto>"
+```
+As seções derivadas (Dreyfus, matriz, confiança, erros, revisão, lacunas) são
+geradas. Depois, se necessário, preencha a seção manual **Metas**.
+
+### 5. Regenerar o índice (MOC)
+Regenere o `index.md` do vault (ligado a **todas** as notas):
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\chris\Projetos\.opencode\scripts\gerar-index.ps1" -VaultPath "<vault do projeto>" -Titulo "<nome do projeto>"
+```
+
+### 6. Evitar sobrescrever
+Se o arquivo do dia já existir, anexe sufixo: `_2`, `_3`, etc.
+
+### 7. Confirmar
+Mostre os caminhos salvos (observação, avaliação, progresso, estado-atual, index)
+e um resumo de 1 linha do que ficou registrado.
+
+## Regras
+
+- **Observabilidade = só fatos.** Juízo ("foi bem", "tem dificuldade") vai na Avaliação.
+- **Avaliação: toda medida cita evidência.** Sem evidência = sem nível.
+- **Pergunte, não invente** (auto-avaliação, confiança, metas).
+- Não altere os templates canônicos.
